@@ -1,0 +1,17 @@
+
+atom_style atomic
+units metal
+variable n equal 5
+lattice fcc 4.924
+region box block 0 $n 0 $n 0 $n units lattice
+create_box 1 box
+create_atoms 1 region box
+pair_style eam/fs
+pair_coeff * * Pb_Wang02.eam.fs Pb
+neighbor 0.3 bin
+region slice block 1.95 2.05 0 $n 0 $n units lattice
+group slice region slice
+displace_atoms slice move 0.05 0.0 0.0 units box
+dump d1 all custom 1 dump id type xs ys zs fx fy fz
+run 1 
+
